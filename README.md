@@ -14,10 +14,10 @@
 ## Business Problem
 The Gazoria Nagrik Bank consistently failed the 99% success-rate SLA from FY2021-22 through FY2025-26:
 
-**Persistent Breach :-** 5-year avg. failure rate ≈ 3.00% (triple the 1% limit).
-**Major Spikes:-** Worst single month was Mar FY2022-23 at 14.88% failure (nearly 15× the SLA).
-**Beneficiary Impact :-** ~3 of every 100 beneficiaries missed a payment each cycle.
-**Costs :-** Each failed mandate incurs return fees, manual reconciliation, and compliance overhead.
-**No Analytics :-** OGB lacked a framework to explain failures or target fixes.
-**Regulatory Risk :-** Continual SLA breaches could trigger NPCI penalties.
-The goal was to diagnose the root causes of these failures and recommend data-driven actions to finally achieve the 99% SLA.
+ **Persistent Breach :-** 5-year avg. failure rate ≈ 3.00% (triple the 1% limit).
+ **Major Spikes:-** Worst single month was Mar FY2022-23 at 14.88% failure (nearly 15× the SLA).
+ **Beneficiary Impact :-** ~3 of every 100 beneficiaries missed a payment each cycle.
+ **Costs :-** Each failed mandate incurs return fees, manual reconciliation, and compliance overhead.
+ **No Analytics :-** OGB lacked a framework to explain failures or target fixes.
+ **Regulatory Risk :-** Continual SLA breaches could trigger NPCI penalties.
+ The goal was to diagnose the root causes of these failures and recommend data-driven actions to finally achieve the 99% SLA.
