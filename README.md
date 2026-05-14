@@ -19,6 +19,14 @@ The project uses raw NPCI NACH Credit Response and Returns data, containing 591,
 The analytical database is modeled as a star schema. The central fact_nach_transactions table stores one record per bank-month and contains all operational KPIs, including success_pct, fail_pct, bus_pct, tech_pct, inward_vol, response-time metrics (Resp_W0 to Resp_W4), and industry benchmark measures (ind_avg_success, ind_avg_fail, ind_avg_bus, and ind_avg_tech).
 
 
+## Skills
+SQL: Joins, CTEs, Window Functions, Aggregate Functions, CASE Statements, Views, KPI Calculations, Scenario Analysis
+Power BI: DAX, Power Query, Data Modeling, Star Schema, Calculated Columns, Measures, KPI Dashboards, Forecast Visualization
+Python: Pandas, NumPy, Matplotlib, Seaborn, ETL Pipelines, Exploratory Data Analysis, Time Series Forecasting, Scenario Simulation
+Machine Learning: scikit-learn, Gradient Boosting Regressor, Feature Engineering, Model Evaluation (R², MAE)
+Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Monitoring, Business Intelligence
+
+
 ## Methodology
 1. **Python ETL & Data Cleaning :-** Extracted and transformed raw NPCI NACH response and return data using Python, Pandas, and NumPy; normalized categories, corrected anomalies, pivoted monthly summaries, and created industry benchmarks.
 2. **SQL Data Modeling & Analysis :-** Built a star schema in SQLite and developed SQL views/CTEs to calculate failure rates, SLA compliance, seasonal trends, root causes, and improvement scenarios.
@@ -26,4 +34,109 @@ The analytical database is modeled as a star schema. The central fact_nach_trans
 4. **Forecasting, Simulation & Validation :-** Built a scikit-learn Gradient Boosting model (R² = 0.977) to predict future failure rates, simulate improvement scenarios, and validate whether the bank’s actual reduction in failure rate aligned with the forecasted decrease from ~3.17% to ~0.9%.
 5. **Power BI Dashboard & DAX :-** Developed a 4-page Microsoft Power BI dashboard with KPI cards, trend analysis, SLA matrix, heatmaps, waterfall charts, and forecast visuals for interactive monitoring and decision-making.
 
-## 
+
+## Insights Deep-Dive
+## 📊 Insights Deep-Dive
+
+<details open>
+<summary><strong>SLA Compliance & Failure Trend</strong></summary>
+
+### ❌ Persistent Non-Compliance with NPCI 99% SLA
+Odisha Gramya Bank failed to meet NPCI’s 99% success-rate SLA in **38 out of 44 months (86.4%)** between FY 2021–22 and FY 2025–26.
+
+### 📉 Failure Rate Three Times Above Regulatory Limit
+The bank’s average failure rate was **3.00%**, compared with the allowed threshold of **1.00%**, meaning approximately **3 out of every 100 beneficiaries** experienced failed or delayed payments.
+
+### 🚨 Extreme Monthly Spike
+The highest failure occurred in **March FY 2022–23**, reaching **14.88%**, nearly **15× above** the SLA threshold.
+
+### 📈 Recent Improvement but Still Non-Compliant
+Failure rates improved from **4.33% in FY 2023–24** to **2.27% in FY 2025–26**, but remained above the 1% target.
+
+</details>
+
+<details>
+<summary><strong>Root Cause Analysis</strong></summary>
+
+### 🧾 100% of Failures Were Business Declines
+All failures were caused by stale or invalid mandate data, including expired mandates, incorrect account numbers, and wrong IFSC codes.
+
+### ⚙️ 0% Technical Declines
+No failures were due to system, network, or processing issues.
+
+### 🎯 Key Insight
+The problem is a **data quality and process governance issue**, not a technology issue.
+
+</details>
+
+<details>
+<summary><strong>Seasonal Patterns</strong></summary>
+
+### 📅 High-Risk Months
+Recurring spikes were observed in:
+- **March:** 4.83% average failure rate
+- **August:** 4.20% average failure rate
+
+### 🔍 Interpretation
+These months align with large welfare and subsidy disbursement cycles.
+
+</details>
+
+<details>
+<summary><strong>Response Time Performance</strong></summary>
+
+### ⚡ Same-Day Processing Near 100%
+The `Resp_W0` metric improved to nearly 100%, indicating that most transactions were processed on the same day.
+
+### ✅ Operational Conclusion
+Processing speed was not a contributing factor to failures.
+
+</details>
+
+<details>
+<summary><strong>Industry Benchmark Comparison</strong></summary>
+
+### 🏦 Consistent Underperformance
+Odisha Gramya Bank reported higher failure rates than the monthly industry average across **2,135 banks**.
+
+### 📊 Opportunity
+Matching peer-bank performance would significantly improve SLA compliance.
+
+</details>
+
+<details>
+<summary><strong>Forecasting & Simulation</strong></summary>
+
+### 🤖 High-Accuracy Forecast Model
+Gradient Boosting Regressor achieved:
+- **R² = 0.977**
+- **MAE = 0.077%**
+
+### 📈 Business-as-Usual Forecast
+Without intervention, the next 12 months were projected to average **3.17% failure**.
+
+### 🎯 Improvement Scenarios
+- **50% reduction in business declines:** ~**1.6%** failure
+- **Aggressive intervention:** ~**0.9%** failure (meets SLA)
+
+### ✅ Validation
+The forecast aligned with the bank’s actual improvement from **4.33% to 2.27%**, confirming the simulation was realistic.
+
+</details>
+
+<details>
+<summary><strong>Business Impact</strong></summary>
+
+### ⏱️ Productivity Gain
+Automated ETL, SQL analytics, forecasting, and Power BI reporting saved approximately **10 hours per month** (**120 hours annually**).
+
+### 🏆 Regulatory Outcome
+Recommended actions can reduce failure rates below **1%**, enabling compliance with NPCI’s 99% success SLA.
+
+### 👥 Customer Benefit
+Improves payment reliability for pensioners, subsidy recipients, and rural beneficiaries.
+
+### 💰 Financial Benefit
+Reduces return charges, reconciliation effort, and potential regulatory penalties.
+
+</details>
