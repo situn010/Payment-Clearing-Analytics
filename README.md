@@ -1,4 +1,4 @@
-NACH Payment Clearing Analytics — The Gazoria Nagrik Bank
+# NACH Payment Clearing Analytics — The Gazoria Nagrik Bank
 ---
 ## Project Overview
 **The Gazoria Nagrik Bank** is a regional bank that processes NACH mandates for government welfare payments. Between FY2021-22 and FY2025-26, OGB consistently failed to meet the NPCI-mandated 99% transaction success SLA, recording an average failure rate of 3.00% — nearly 3× higher than the allowed 1% ceiling. These failures delayed welfare disbursements for rural beneficiaries and increased return-processing costs and compliance risks.
