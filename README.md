@@ -34,170 +34,95 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 ---
 
 ## Methodology
-1. **Python ETL & Data Cleaning :-** Extracted and transformed raw NPCI NACH response and return data using Python, Pandas, and NumPy; normalized categories, corrected anomalies, pivoted monthly summaries, and created industry benchmarks.
-2. **SQL Data Modeling & Analysis :-** Built a star schema in SQLite and developed SQL views/CTEs to calculate failure rates, SLA compliance, seasonal trends, root causes, and improvement scenarios.
-3. **EDA & Root Cause Analysis :-** Used Matplotlib and Seaborn to identify 38/44 SLA breaches and confirm that 100% of failures were business declines caused by stale mandate data.
-4. **Forecasting, Simulation & Validation :-** Built a scikit-learn Gradient Boosting model (R² = 0.977) to predict future failure rates, simulate improvement scenarios, and validate whether the bank’s actual reduction in failure rate aligned with the forecasted decrease from ~3.17% to ~0.9%.
-5. **Power BI Dashboard & DAX :-** Developed a 4-page Microsoft Power BI dashboard with KPI cards, trend analysis, SLA matrix, heatmaps, waterfall charts, and forecast visuals for interactive monitoring and decision-making.
+1. Python ETL & Data Cleaning :-Extracted and transformed raw NPCI NACH response and return data using Python, Pandas, and NumPy; normalized categories, corrected anomalies, pivoted monthly summaries, and created industry benchmarks.
+2. SQL Data Modeling & Analysis :- Built a star schema in SQLite and developed SQL views/CTEs to calculate failure rates, SLA compliance, seasonal trends, root causes, and improvement scenarios.
+3. EDA & Root Cause Analysis :- Used Matplotlib and Seaborn to identify 38/44 SLA breaches and confirm that 100% of failures were business declines caused by stale mandate data.
+4. Forecasting, Simulation & Validation :- Built a scikit-learn Gradient Boosting model (R² = 0.977) to predict future failure rates, simulate improvement scenarios, and validate whether the bank’s actual reduction in failure rate aligned with the forecasted decrease from ~3.17% to ~0.9%.
+5. Power BI Dashboard & DAX :- Developed a 4-page Microsoft Power BI dashboard with KPI cards, trend analysis, SLA matrix, heatmaps, waterfall charts, and forecast visuals for interactive monitoring and decision-making.
 
 ---
 
 ## Insights Deep-Dive
 
 <details open>
-<summary><strong>**SLA Compliance & Failure Trend**</strong></summary>
+<summary><strong>SLA Compliance & Failure Trend</strong></summary>
 
-### Persistent Non-Compliance with NPCI 99% SLA
-Odisha Gramya Bank failed to meet NPCI’s 99% success-rate SLA in **38 out of 44 months (86.4%)** between FY 2021–22 and FY 2025–26.
-
-### Failure Rate Three Times Above Regulatory Limit
-The bank’s average failure rate was **3.00%**, compared with the allowed threshold of **1.00%**, meaning approximately **3 out of every 100 beneficiaries** experienced failed or delayed payments.
-
-### Extreme Monthly Spike
-The highest failure occurred in **March FY 2022–23**, reaching **14.88%**, nearly **15× above** the SLA threshold.
-
-### Recent Improvement but Still Non-Compliant
-Failure rates improved from **4.33% in FY 2023–24** to **2.27% in FY 2025–26**, but remained above the 1% target.
-
-</details>
-
-<details>
-<summary><strong>**Root Cause Analysis**</strong></summary>
-
-### 100% of Failures Were Business Declines
-All failures were caused by stale or invalid mandate data, including expired mandates, incorrect account numbers, and wrong IFSC codes.
-
-### 0% Technical Declines
-No failures were due to system, network, or processing issues.
-
-### Key Insight
-The problem is a **data quality and process governance issue**, not a technology issue.
-
-</details>
-
-<details>
-<summary><strong>Seasonal Patterns</strong></summary>
-
-### 📅 High-Risk Months
-Recurring spikes were observed in:
-- **March:** 4.83% average failure rate
-- **August:** 4.20% average failure rate
-
-### 🔍 Interpretation
-These months align with large welfare and subsidy disbursement cycles.
-
-</details>
-
-<details>
-<summary><strong>**Response Time Performance**</strong></summary>
-
-### Same-Day Processing Near 100%
-The `Resp_W0` metric improved to nearly 100%, indicating that most transactions were processed on the same day.
-
-### Operational Conclusion
-Processing speed was not a contributing factor to failures.
-
-</details>
-
-<details>
-<summary><strong>**Industry Benchmark Comparison**</strong></summary>
-
-### Consistent Underperformance
-Odisha Gramya Bank reported higher failure rates than the monthly industry average across **2,135 banks**.
-
-### Opportunity
-Matching peer-bank performance would significantly improve SLA compliance.
-
-</details>
-
-<details>
-<summary><strong>**Forecasting & Simulation**</strong></summary>
-
-### High-Accuracy Forecast Model
-Gradient Boosting Regressor achieved:
-- **R² = 0.977**
-- **MAE = 0.077%**
-
-### Business-as-Usual Forecast
-Without intervention, the next 12 months were projected to average **3.17% failure**.
-
-### Improvement Scenarios
-- **50% reduction in business declines:** ~**1.6%** failure
-- **Aggressive intervention:** ~**0.9%** failure (meets SLA)
-
-### Validation
-The forecast aligned with the bank’s actual improvement from **4.33% to 2.27%**, confirming the simulation was realistic.
-
-</details>
-
-<details>
-<summary><strong>**Business Impact**</strong></summary>
-
-### Productivity Gain
-Automated ETL, SQL analytics, forecasting, and Power BI reporting saved approximately **10 hours per month** (**120 hours annually**).
-
-### Regulatory Outcome
-Recommended actions can reduce failure rates below **1%**, enabling compliance with NPCI’s 99% success SLA.
-
-### Customer Benefit
-Improved payment reliability for pensioners, subsidy recipients, and rural beneficiaries.
-
-### Financial Benefit
-Reduced return charges, reconciliation effort, and potential regulatory penalties.
-
-</details>
-
-
-
----
-
-## 3. Root Cause Finding
-
-|  |
-| --- |
-| All 44 months recorded **zero technical failures**. Every failure traced back to mandate data quality — stale accounts, expired mandates, and IFSC mismatches submitted without pre-validation. This redirected the entire remediation effort from IT infrastructure to **data governance**. |
 
 |  |  |
-| --- | --- |
-| **RCA-1 — Stale Mandate Data** <br> Wrong/closed accounts and expired mandates submitted without NPCI account verification. | **RCA-2 — No Feedback Loop** <br> Failed mandates re-submitted uncorrected month-over-month. Peak: 14.88% March FY 2022-23. |
-| **RCA-3 — Seasonal Surge** <br> Bulk uploads in March & August under deadline pressure bypass data-quality checks. | **RCA-4 — Portfolio Degradation** <br> Rapid mandate growth without periodic re-verification of existing mandates. |
+| :---: | :---: |
+| **1. Persistent Non-Compliance with NPCI 99% SLA** <br> The bank failed to meet NPCI's 99% success-rate SLA in **38 out of 44 months (86.4%)**. | **2. Failure Rate Three Times Above Regulatory Limit** <br> The bank's average failure rate was **3.00%**, compared with the allowed threshold of **1.00%**. |
+| **3. Extreme Monthly Spike** <br> Highest failure in **March FY 2022–23** reaching **14.88%**, nearly **15× above** the SLA threshold. | **4. Recent Improvement but Still Non-Compliant** <br> Failure rates improved from **4.33%** to **2.27%** but remained above the 1% target. |
+
+</details>
+
+
+<details open>
+<summary><strong>Root Cause Analysis</strong></summary>
+
+
+|  |  |  |  |  |
+| :---: | :---: | :---: | :---: | :---: |
+| **ID** | **Title** | **Evidence** | **Mechanism** | **Bottleneck** |
+| **RCA-1** | **Stale Mandate Data** | 100% Business Declines · 0% Technical | Wrong/closed accounts, expired mandates, IFSC mismatches submitted without validation | No pre-submission NPCI account verification API |
+| **RCA-2** | **No Feedback Loop** | Same mandates fail month-over-month · Mar 22-23 peaked **14.88%** | Failed credit in month N re-submitted in month N+1 without correction | No automated failure notification to originating institution |
+| **RCA-3** | **Seasonal Surge** | March avg **4.83%** · August avg **4.20%** | Bulk mandate uploads under deadline pressure with reduced data-quality checks | No pre-cycle batch dry-run validation process |
+| **RCA-4** | **Portfolio Degradation** | Failure rose from **0.98%** (FY21-22) to **4.33%** (FY23-24) | Rapid mandate base growth without periodic re-verification of existing mandates | No annual mandate health-check or refresh programme |
+
+</details>
+
+
+<details open>
+<summary><strong>Seasonal Patterns</strong></summary>
+
+
+|  |  |
+| :---: | :---: |
+| **High-Risk Months** <br><br> Recurring failure spikes observed in **March** (avg 4.83%) and **August** (avg 4.20%) across multiple fiscal years. | **Interpretation** <br><br> These months align with large **welfare and subsidy disbursement cycles**, causing bulk mandate uploads under deadline pressure. |
+
+</details>
+
+
+<details open>
+<summary><strong>Response Time Performance</strong></summary>
+
+
+|  |  |
+| :---: | :---: |
+| **Same-Day Processing Near 100%** <br><br> The `Resp_W0` metric improved to nearly **100%**, indicating that most transactions were processed on the same day. | **Operational Conclusion** <br><br> Processing speed was **not a contributing factor** to failures — the bottleneck was mandate data quality, not response time. |
+
+</details>
+
+
+<details open>
+<summary><strong>Industry Benchmark Comparison</strong></summary>
+
+
+|  |  |
+| :---: | :---: |
+| **Consistent Underperformance** <br><br> Odisha Gramya Bank reported higher failure rates than the monthly industry average across **2,135 participating banks**. | **Opportunity** <br><br> Matching peer-bank performance through mandate data governance would **significantly improve SLA compliance** within 12–18 months. |
+
+</details>
+
+
+<details open>
+<summary><strong>Forecasting & Simulation</strong></summary>
+
+|  |  |  |  |
+| :---: | :---: | :---: | :---: |
+| **Model Accuracy** <br><br> Gradient Boosting Regressor achieved **R² = 0.977** and **MAE = 0.077%** — explaining 97.7% of variance in monthly failure rates. | **Business-as-Usual Forecast** <br><br> Without intervention, the next 12 months projected to average **3.17% failure rate**. | **Improvement Scenarios** <br><br> 50% reduction in business declines → **~1.6% failure** <br><br> Aggressive intervention → **~0.9% failure ✓ SLA met** | **Validation** <br><br> Forecast aligned with the bank's actual improvement from **4.33% → 2.27%**, confirming the simulation was realistic. |
+
+</details>
+
+
+<details open>
+<summary><strong>Business Impact</strong></summary>
+
+
+|  |  |  |  |
+| :---: | :---: | :---: | :---: |
+| **Productivity Gain** <br><br> Automated ETL, SQL analytics, forecasting, and Power BI reporting saved approximately **10 hours/month** — **120 hours annually**. | **Regulatory Outcome** <br><br> Recommended actions can reduce failure rates below **1%**, enabling full compliance with NPCI's **99% success SLA**. | **Customer Benefit** <br><br> Improved payment reliability for **pensioners, subsidy recipients, and rural beneficiaries** across Odisha. | **Financial Benefit** <br><br> Reduced return charges, reconciliation effort, and potential **regulatory penalties** under NPCI circular NACH/022/2022. |
+
+</details>
 
 ---
-
-## 4. Improvement Roadmap
-
-|  |  |  |
-| --- | --- | --- |
-| **Initiative** | **Action** | **Projected Impact** |
-| IM-1 | NPCI account verification API at onboarding | −60% of failures |
-| IM-2 | Pre-cycle dry-run batch validation (30 days prior) | −20% |
-| IM-3 | Real-time SLA monitoring alert dashboard | −10% |
-| IM-4 | Automated originator failure notification | −15% |
-
-|  |
-| --- |
-| **Combined impact:** Failure rate projected to drop from **3.00% → 0.90%** within 18 months — achieving NPCI SLA compliance for the **first time** in the bank's recorded operational history. |
-
----
-
-## 5. Forecast Scenarios
-
-|  |  |  |
-| --- | --- | --- |
-| **Scenario** | **Business Decline Reduction** | **Projected Failure Rate** |
-| Baseline (BAU) | No intervention | 3.17% |
-| Conservative | 30% reduction | 2.10% |
-| Moderate | 50% reduction | 1.50% |
-| **Aggressive** | **70% reduction** | **0.90% ✓ SLA met** |
-
----
-
-## 6. Tools & Stack
-
-|  |  |  |
-| --- | --- | --- |
-| **Data & ETL** | Python · Pandas · NumPy · SQLite | 591,608-row ingestion, 7-step cleaning pipeline |
-| **Visualisation** | Matplotlib · Seaborn | 10 publication-quality EDA charts |
-| **ML Forecasting** | Scikit-learn GradientBoostingRegressor | R²=0.977 · MAE=0.077% · 12-month forecast |
-| **BI Dashboard** | Power BI · DAX | 4-page Star Schema dashboard · 6 DAX measures |
 
