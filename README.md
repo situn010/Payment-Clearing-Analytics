@@ -142,34 +142,6 @@ Reduces return charges, reconciliation effort, and potential regulatory penaltie
 
 
 
-
-
-|  |  |  |  |
-| --- | --- | --- | --- |
-| **3.00%** <br> Avg Failure Rate <br> vs 7.09% Industry Avg | **44** <br> Months Analysed <br> FY 2021-22 → FY 2025-26 | **0.977** <br> ML Model R² <br> Gradient Boosting Regressor | **48.6%** <br> Forecasted Improvement <br> Post-intervention reduction |
-
----
-
-## 1. Overview
-
-|  |
-| --- |
-| End-to-end analysis of NACH mandate clearing performance for Odisha Gramya Bank — a Regional Rural Bank serving rural beneficiaries across Odisha — using NPCI's 591,608-row multi-bank dataset. The project covers ETL, EDA, root cause analysis, industry benchmarking, improvement simulation, ML forecasting, and a Power BI dashboard. |
-
----
-
-## 2. Key Metrics
-
-|  |  |
-| --- | --- |
-| **Avg 5-year failure rate** | 3.00% &nbsp; *(SLA ceiling: 1%)* |
-| **Months above SLA threshold** | 38 of 44 &nbsp; *(86.4% non-compliance)* |
-| **Peak failure month** | 14.88% — March FY 2022-23 |
-| **Failure cause** | 100% Business Declines · 0% Technical |
-| **ML model accuracy** | R² = 0.977 · MAE = 0.077% |
-| **Post-intervention forecast** | 1.63% avg failure *(↓ 48.6%)* |
-| **Aggressive scenario** | 0.90% — first-ever SLA compliance |
-
 ---
 
 ## 3. Root Cause Finding
