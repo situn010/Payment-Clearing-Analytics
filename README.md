@@ -57,21 +57,6 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 
 
 <details open>
-<summary><strong>Root Cause Analysis</strong></summary>
-
-
-|  |  |  |  |  |
-| :---: | :---: | :---: | :---: | :---: |
-| **ID** | **Title** | **Evidence** | **Mechanism** | **Bottleneck** |
-| **RCA-1** | **Stale Mandate Data** | 100% Business Declines · 0% Technical | Wrong/closed accounts, expired mandates, IFSC mismatches submitted without validation | No pre-submission NPCI account verification API |
-| **RCA-2** | **No Feedback Loop** | Same mandates fail month-over-month · Mar 22-23 peaked **14.88%** | Failed credit in month N re-submitted in month N+1 without correction | No automated failure notification to originating institution |
-| **RCA-3** | **Seasonal Surge** | March avg **4.83%** · August avg **4.20%** | Bulk mandate uploads under deadline pressure with reduced data-quality checks | No pre-cycle batch dry-run validation process |
-| **RCA-4** | **Portfolio Degradation** | Failure rose from **0.98%** (FY21-22) to **4.33%** (FY23-24) | Rapid mandate base growth without periodic re-verification of existing mandates | No annual mandate health-check or refresh programme |
-
-</details>
-
-
-<details open>
 <summary><strong>Seasonal Patterns</strong></summary>
 
 
@@ -99,7 +84,22 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 
 |  |  |
 | :---: | :---: |
-| **Consistent Underperformance** <br><br> Odisha Gramya Bank reported higher failure rates than the monthly industry average across **2,135 participating banks**. | **Opportunity** <br><br> Matching peer-bank performance through mandate data governance would **significantly improve SLA compliance** within 12–18 months. |
+| **Consistent Underperformance** <br><br> The Gazoria Nagrik Bank reported higher failure rates than the monthly industry average across **2,135 participating banks**. | **Opportunity** <br><br> Matching peer-bank performance through mandate data governance would **significantly improve SLA compliance** within 12–18 months. |
+
+</details>
+
+
+<details open>
+<summary><strong>Root Cause Analysis</strong></summary>
+
+
+|  |  |  |  |  |
+| :---: | :---: | :---: | :---: | :---: |
+| **ID** | **Title** | **Evidence** | **Mechanism** | **Bottleneck** |
+| **RCA-1** | **Stale Mandate Data** | 100% Business Declines · 0% Technical | Wrong/closed accounts, expired mandates, IFSC mismatches submitted without validation | No pre-submission NPCI account verification API |
+| **RCA-2** | **No Feedback Loop** | Same mandates fail month-over-month · Mar 22-23 peaked **14.88%** | Failed credit in month N re-submitted in month N+1 without correction | No automated failure notification to originating institution |
+| **RCA-3** | **Seasonal Surge** | March avg **4.83%** · August avg **4.20%** | Bulk mandate uploads under deadline pressure with reduced data-quality checks | No pre-cycle batch dry-run validation process |
+| **RCA-4** | **Portfolio Degradation** | Failure rose from **0.98%** (FY21-22) to **4.33%** (FY23-24) | Rapid mandate base growth without periodic re-verification of existing mandates | No annual mandate health-check or refresh programme |
 
 </details>
 
