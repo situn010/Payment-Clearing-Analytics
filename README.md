@@ -36,7 +36,6 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 
 
 ## Insights Deep-Dive
-## 📊 Insights Deep-Dive
 
 <details open>
 <summary><strong>SLA Compliance & Failure Trend</strong></summary>
