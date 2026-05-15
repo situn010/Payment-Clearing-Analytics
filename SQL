@@ -1,0 +1,543 @@
+/* =========================================================
+   PROJECT : NACH Payment Clearing Analytics
+   DOMAIN  : Banking & FinTech / NACH Operations
+   BANK    : Odisha Gramya Bank
+   DATABASE: SQLite
+   ========================================================= */
+
+
+/* =========================================================
+   STEP 1 — CREATE DIMENSION & FACT TABLES
+   ========================================================= */
+
+
+/* ---------- TABLE 1 : DATE DIMENSION ---------- */
+
+CREATE TABLE dim_date (
+    TimeIndex      INTEGER PRIMARY KEY,
+    FiscalYear     TEXT,
+    FY_Label       TEXT,
+    FY_Num         INTEGER,
+    Month          TEXT,
+    MonthShort     TEXT,
+    MonthNum       INTEGER,
+    Quarter        TEXT,
+    IsAuditMonth   INTEGER
+);
+
+
+/* ---------- TABLE 2 : BANK DIMENSION ---------- */
+
+CREATE TABLE dim_bank (
+    BankID         INTEGER PRIMARY KEY,
+    BankName       TEXT,
+    BankType       TEXT,
+    State          TEXT,
+    Sponsor        TEXT,
+    IsRRB          INTEGER,
+    SLA_Target     REAL
+);
+
+
+/* ---------- TABLE 3 : SEVERITY LOOKUP ---------- */
+
+CREATE TABLE dim_severity (
+    SeverityID      INTEGER PRIMARY KEY,
+    SeverityLabel   TEXT,
+    FailMin         REAL,
+    FailMax         REAL,
+    Color           TEXT,
+    Priority        INTEGER
+);
+
+
+/* ---------- TABLE 4 : FACT TABLE ---------- */
+
+CREATE TABLE fact_nach_transactions (
+
+    TimeIndex           INTEGER,
+    BankID              INTEGER,
+
+    BankName            TEXT,
+
+    FiscalYear          TEXT,
+    FY_Label            TEXT,
+    FY_Num              INTEGER,
+
+    Month               TEXT,
+    MonthShort          TEXT,
+    MonthNum            INTEGER,
+    Quarter             TEXT,
+
+    IsAuditMonth        INTEGER,
+
+    success_pct         REAL,
+    fail_pct            REAL,
+
+    bus_pct             REAL,
+    tech_pct            REAL,
+
+    same_day_pct        REAL,
+
+    resp_1d_pct         REAL,
+    resp_2d_pct         REAL,
+    resp_3d_pct         REAL,
+    resp_4d_pct         REAL,
+
+    ind_avg_fail        REAL,
+    ind_avg_success     REAL,
+
+    gap_vs_industry     REAL,
+
+    mom_change          REAL,
+    roll3_fail          REAL,
+
+    sla_met             INTEGER,
+    sla_status          TEXT,
+
+    severity            TEXT,
+    trend_dir           TEXT,
+
+    SLA_Target          REAL,
+
+    FOREIGN KEY(TimeIndex)
+        REFERENCES dim_date(TimeIndex),
+
+    FOREIGN KEY(BankID)
+        REFERENCES dim_bank(BankID),
+
+    FOREIGN KEY(severity)
+        REFERENCES dim_severity(SeverityLabel)
+);
+
+
+
+/* =========================================================
+   STEP 2 — IMPORT CSV FILES
+   =========================================================
+
+   In sqliteonline.com:
+
+   File → Import CSV
+
+   Import files in the following order:
+
+   1. dim_date.csv                → dim_date
+   2. dim_bank.csv                → dim_bank
+   3. dim_severity.csv            → dim_severity
+   4. fact_nach_transactions.csv  → fact_nach_transactions
+
+   Verify import using:
+
+   SELECT COUNT(*) FROM table_name;
+
+   ========================================================= */
+
+
+
+/* =========================================================
+   STEP 3 — CREATE ANALYTICAL VIEWS
+   ========================================================= */
+
+
+/* ---------- VIEW 1 : MONTHLY MASTER SUMMARY ---------- */
+
+CREATE VIEW vw_monthly_summary AS
+
+SELECT
+
+    f.TimeIndex,
+
+    f.FY_Label,
+    f.FiscalYear,
+
+    f.Month,
+    f.MonthShort,
+    f.MonthNum,
+    f.Quarter,
+
+    b.BankName,
+    b.BankType,
+    b.State,
+
+    b.SLA_Target,
+
+    f.success_pct,
+    f.fail_pct,
+
+    f.bus_pct,
+    f.tech_pct,
+
+    f.same_day_pct,
+
+    f.ind_avg_fail,
+    f.gap_vs_industry,
+
+    f.mom_change,
+    f.roll3_fail,
+
+    f.sla_met,
+    f.sla_status,
+
+    f.severity,
+    f.trend_dir,
+
+    s.Color     AS severity_color,
+    s.Priority  AS severity_priority,
+
+    (f.success_pct - b.SLA_Target) AS gap_to_sla
+
+FROM fact_nach_transactions f
+
+JOIN dim_bank b
+    ON f.BankID = b.BankID
+
+JOIN dim_severity s
+    ON f.severity = s.SeverityLabel
+
+ORDER BY f.FY_Num, f.MonthNum;
+
+
+
+/* ---------- VIEW 2 : FISCAL YEAR SUMMARY ---------- */
+
+CREATE VIEW vw_fy_summary AS
+
+SELECT
+
+    FY_Label,
+    FiscalYear,
+
+    COUNT(*) AS total_months,
+
+    ROUND(AVG(success_pct), 2)      AS avg_success,
+    ROUND(AVG(fail_pct), 2)         AS avg_failure,
+
+    ROUND(AVG(bus_pct), 2)          AS avg_business_decline,
+    ROUND(AVG(ind_avg_fail), 2)     AS avg_industry_fail,
+
+    ROUND(AVG(gap_vs_industry), 2)  AS avg_gap,
+
+    ROUND(MAX(fail_pct), 2)         AS worst_month_fail,
+    ROUND(MIN(fail_pct), 2)         AS best_month_fail,
+
+    SUM(sla_met) AS months_sla_compliant,
+
+    ROUND(
+        SUM(sla_met) * 100.0 / COUNT(*),
+        1
+    ) AS sla_compliance_pct
+
+FROM fact_nach_transactions
+
+GROUP BY FY_Label, FiscalYear
+
+ORDER BY FiscalYear;
+
+
+
+/* ---------- VIEW 3 : SEASONAL FAILURE PATTERN ---------- */
+
+CREATE VIEW vw_seasonal AS
+
+SELECT
+
+    Month,
+    MonthNum,
+    MonthShort,
+
+    COUNT(*) AS data_points,
+
+    ROUND(AVG(fail_pct), 2) AS avg_fail,
+    ROUND(MAX(fail_pct), 2) AS peak_fail,
+    ROUND(MIN(fail_pct), 2) AS best_fail,
+
+    ROUND(AVG(bus_pct), 2) AS avg_business_decline,
+
+    SUM(sla_met) AS months_compliant,
+
+    CASE
+        WHEN AVG(fail_pct) > 3.0
+            THEN 'HIGH RISK'
+        ELSE 'NORMAL'
+    END AS risk_flag
+
+FROM fact_nach_transactions
+
+GROUP BY
+    Month,
+    MonthNum,
+    MonthShort
+
+ORDER BY MonthNum;
+
+
+
+/* ---------- VIEW 4 : SLA TRACKER ---------- */
+
+CREATE VIEW vw_sla_tracker AS
+
+SELECT
+
+    FY_Label,
+    Month,
+    MonthShort,
+
+    success_pct,
+    fail_pct,
+
+    sla_met,
+    sla_status,
+
+    severity,
+
+    gap_to_sla,
+
+    ind_avg_fail,
+    gap_vs_industry,
+
+    same_day_pct,
+
+    mom_change,
+    trend_dir,
+
+    CASE
+
+        WHEN sla_met = 1
+            THEN 'On Track'
+
+        WHEN fail_pct > 10
+            THEN 'Immediate Action Required'
+
+        ELSE 'Monitor Closely'
+
+    END AS action_required
+
+FROM vw_monthly_summary
+
+ORDER BY FY_Num, MonthNum;
+
+
+
+/* ---------- VIEW 5 : ROOT CAUSE ANALYSIS ---------- */
+
+CREATE VIEW vw_root_cause AS
+
+SELECT
+
+    FY_Label,
+
+    ROUND(AVG(bus_pct), 2)
+        AS avg_business_decline,
+
+    ROUND(AVG(tech_pct), 2)
+        AS avg_technical_decline,
+
+    ROUND(AVG(fail_pct), 2)
+        AS avg_total_failure,
+
+    ROUND(
+        AVG(bus_pct) * 100.0 /
+        NULLIF(AVG(fail_pct), 0),
+        1
+    ) AS business_share_pct,
+
+    ROUND(
+        AVG(tech_pct) * 100.0 /
+        NULLIF(AVG(fail_pct), 0),
+        1
+    ) AS technical_share_pct
+
+FROM fact_nach_transactions
+
+GROUP BY FY_Label
+
+ORDER BY FiscalYear;
+
+
+
+/* =========================================================
+   STEP 4 — ANALYTICAL SQL QUERIES
+   ========================================================= */
+
+
+/* ---------- QUERY 1 : WORST FISCAL YEAR ---------- */
+
+SELECT
+
+    FY_Label,
+    avg_failure,
+    avg_industry_fail,
+
+    months_sla_compliant,
+    sla_compliance_pct,
+
+    worst_month_fail
+
+FROM vw_fy_summary
+
+ORDER BY FiscalYear;
+
+
+
+/* ---------- QUERY 2 : TOP 5 WORST MONTHS ---------- */
+
+SELECT
+
+    FY_Label,
+    Month,
+
+    fail_pct,
+    bus_pct,
+
+    sla_status,
+    severity,
+
+    gap_vs_industry
+
+FROM vw_monthly_summary
+
+ORDER BY fail_pct DESC
+
+LIMIT 5;
+
+
+
+/* ---------- QUERY 3 : CHRONIC HIGH-RISK MONTH ---------- */
+
+SELECT
+
+    Month,
+
+    avg_fail,
+    peak_fail,
+
+    months_compliant,
+    risk_flag
+
+FROM vw_seasonal
+
+ORDER BY avg_fail DESC;
+
+
+
+/* ---------- QUERY 4 : ROOT CAUSE ANALYSIS ---------- */
+
+SELECT
+
+    FY_Label,
+
+    avg_business_decline,
+    avg_technical_decline,
+
+    business_share_pct
+
+FROM vw_root_cause;
+
+
+
+/* ---------- QUERY 5 : COMPLETE SLA TRACKER ---------- */
+
+SELECT
+
+    FY_Label,
+    Month,
+
+    success_pct,
+    fail_pct,
+
+    sla_status,
+    severity,
+
+    action_required,
+    trend_dir
+
+FROM vw_sla_tracker;
+
+
+
+/* ---------- QUERY 6 : RESPONSE SPEED ANALYSIS ---------- */
+
+SELECT
+
+    FY_Label,
+
+    ROUND(AVG(same_day_pct), 1)
+        AS avg_same_day,
+
+    SUM(
+        CASE
+            WHEN same_day_pct < 90
+                THEN 1
+            ELSE 0
+        END
+    ) AS months_below_90pct
+
+FROM vw_monthly_summary
+
+GROUP BY FY_Label
+
+ORDER BY FiscalYear;
+
+
+
+/* ---------- QUERY 7 : MONTHLY FAILURE TREND ---------- */
+
+SELECT
+
+    FY_Label,
+    Month,
+
+    fail_pct,
+    roll3_fail,
+
+    mom_change,
+    trend_dir
+
+FROM vw_monthly_summary
+
+ORDER BY FY_Num, MonthNum;
+
+
+
+/* ---------- QUERY 8 : IMPROVEMENT SIMULATION ---------- */
+
+WITH base AS (
+
+    SELECT
+        ROUND(AVG(fail_pct), 3) AS f
+
+    FROM fact_nach_transactions
+)
+
+SELECT
+    'Current State' AS Scenario,
+    f AS Projected_Fail
+FROM base
+
+UNION ALL
+
+SELECT
+    'Conservative -30%',
+    ROUND(f * 0.70, 3)
+FROM base
+
+UNION ALL
+
+SELECT
+    'Moderate -50%',
+    ROUND(f * 0.50, 3)
+FROM base
+
+UNION ALL
+
+SELECT
+    'Aggressive -70%',
+    ROUND(f * 0.30, 3)
+FROM base;
+
+
+
+/* =========================================================
+   END OF PROJECT
+   ========================================================= */
