@@ -20,7 +20,17 @@
 
 ## Dataset Structure and ERD (Entity Relationship Diagram)
 The project uses raw NPCI NACH Credit Response and Returns data, containing 591,608 rows and 8 columns (FiscalYear, Month, BankName, BankID, TypeName, Category, Value, and Units) across 2,135 banks and five fiscal years (FY 2021–22 to FY 2025–26).  For this project, 426 raw rows corresponding to **The Gazoria Nagrik Bank** were extracted and transformed using Python and Pandas. The final analytical dataset consists of 44 monthly records and 15 columns, including success rate, failure rate, business and technical declines, inward volume, and response-time buckets (Resp_W0 to Resp_W4), with zero null values and zero validation failures.
+
+<p align="center">
+  <img src="Dataset and ERD/RAW.png" width="100%"/>
+</p>
+
+
 The analytical database is modeled as a star schema. The central fact_nach_transactions table stores one record per bank-month and contains all operational KPIs, including success_pct, fail_pct, bus_pct, tech_pct, inward_vol, response-time metrics (Resp_W0 to Resp_W4), and industry benchmark measures (ind_avg_success, ind_avg_fail, ind_avg_bus, and ind_avg_tech).
+
+<p align="center">
+  <img src="Dataset and ERD/ERD.png" width="100%"/>
+</p>
 
 ---
 
@@ -115,7 +125,7 @@ The analytical database is modeled as a star schema. The central fact_nach_trans
 </details>
 
 <p align="center">
-  <img src="Chart/Failure_Reduction.png" width="100%" height="320"/>
+  <img src="Chart/Failure_Reduction.png" width="100%" />
 </p>
 
 ---
@@ -139,7 +149,7 @@ The analytical database is modeled as a star schema. The central fact_nach_trans
 | **+4.33pp** <br> Gap vs Industry (FY23-24) <br> Bank vs 0.00% tech decline nationally | **2.10%** <br> Conservative Scenario <br> After 30% biz decline reduction | **1.50%** <br> Moderate Scenario <br> After 50% biz decline reduction | **0.90%** <br> Aggressive Scenario <br> After 70% — SLA ACHIEVED ✓ |
 
 <p align="center">
-  <img src="Chart/Bank_Vs_Industry_Avg_Fiscal_Year.png" width="100%" height="320"/>
+  <img src="Chart/Bank_Vs_Industry_Avg_Fiscal_Year.png" width="100%"/>
 </p>
 
 ---
@@ -151,7 +161,7 @@ The analytical database is modeled as a star schema. The central fact_nach_trans
 | **R² 0.977** <br> ML Model Accuracy <br> 97.7% variance explained | **0.077%** <br> Forecast MAE <br> Avg prediction error | **3.17%** <br> BAU 12M Avg Failure <br> Without intervention | **1.63%** <br> Post-Fix 12M Avg <br> With mandate validation |
 
 <p align="center">
-  <img src="Chart/Failure_Reduction_Forecast.png" width="100%" height="320"/>
+  <img src="Chart/Failure_Reduction_Forecast.png" width="100%" />
 </p>
 
 ---
