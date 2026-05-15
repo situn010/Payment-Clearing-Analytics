@@ -47,11 +47,12 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 <details open>
 <summary><strong>SLA Compliance & Failure Trend</strong></summary>
 
-
 |  |  |
 | :---: | :---: |
 | **1. Persistent Non-Compliance with NPCI 99% SLA** <br> The bank failed to meet NPCI's 99% success-rate SLA in **38 out of 44 months (86.4%)**. | **2. Failure Rate Three Times Above Regulatory Limit** <br> The bank's average failure rate was **3.00%**, compared with the allowed threshold of **1.00%**. |
+| <img src="Chart/Bank_Success_Percentage.png"  width="450"/> | <img src="Chart/Failure_Rate_By_Year.png" width="450"/> |
 | **3. Extreme Monthly Spike** <br> Highest failure in **March FY 2022–23** reaching **14.88%**, nearly **15× above** the SLA threshold. | **4. Recent Improvement but Still Non-Compliant** <br> Failure rates improved from **4.33%** to **2.27%** but remained above the 1% target. |
+| <img src="Chart/Anomaly_Detection.png" width="450"/> | <img src="Chart/Failure_Reduction.png" width="450"/> |
 
 </details>
 
@@ -59,10 +60,10 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 <details open>
 <summary><strong>Seasonal Patterns</strong></summary>
 
-
 |  |  |
 | :---: | :---: |
 | **High-Risk Months** <br><br> Recurring failure spikes observed in **March** (avg 4.83%) and **August** (avg 4.20%) across multiple fiscal years. | **Interpretation** <br><br> These months align with large **welfare and subsidy disbursement cycles**, causing bulk mandate uploads under deadline pressure. |
+| <img src="Chart/Failure_Rate_Heatmap_Over_Months.png" width="100%" height="260"/> | <img src="Chart/Distribution_of_Monthly_Failure_rates.png" width="100%" height="260"/> |
 
 </details>
 
@@ -70,10 +71,10 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 <details open>
 <summary><strong>Response Time Performance</strong></summary>
 
-
 |  |  |
 | :---: | :---: |
 | **Same-Day Processing Near 100%** <br><br> The `Resp_W0` metric improved to nearly **100%**, indicating that most transactions were processed on the same day. | **Operational Conclusion** <br><br> Processing speed was **not a contributing factor** to failures — the bottleneck was mandate data quality, not response time. |
+| <img src="Chart/Same_Day_Response_%_over_Time.png" width="100%" height="260"/> | <img src="Chart/Response_Time_Distribution_By_Fiscal_Year.png" width="100%" height="260"/> |
 
 </details>
 
