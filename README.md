@@ -25,11 +25,11 @@ The analytical database is modeled as a star schema. The central fact_nach_trans
 ---
 
 ## Skills
-SQL: Joins, CTEs, Window Functions, Aggregate Functions, CASE Statements, Views, KPI Calculations, Scenario Analysis
-Power BI: DAX, Power Query, Data Modeling, Star Schema, Calculated Columns, Measures, KPI Dashboards, Forecast Visualization
-Python: Pandas, NumPy, Matplotlib, Seaborn, ETL Pipelines, Exploratory Data Analysis, Time Series Forecasting, Scenario Simulation
-Machine Learning: scikit-learn, Gradient Boosting Regressor, Feature Engineering, Model Evaluation (R², MAE)
-Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Monitoring, Business Intelligence
+1. SQL: Joins, CTEs, Window Functions, Aggregate Functions, CASE Statements, Views, KPI Calculations, Scenario Analysis
+2. Power BI: DAX, Power Query, Data Modeling, Star Schema, Calculated Columns, Measures, KPI Dashboards, Forecast Visualization
+3. Python: Pandas, NumPy, Matplotlib, Seaborn, ETL Pipelines, Exploratory Data Analysis, Time Series Forecasting, Scenario Simulation
+4. Machine Learning: scikit-learn, Gradient Boosting Regressor, Feature Engineering, Model Evaluation (R², MAE)
+5. Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Monitoring, Business Intelligence
 
 ---
 
