@@ -74,7 +74,7 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 |  |  |
 | :---: | :---: |
 | **Same-Day Processing Near 100%** <br><br> The `Resp_W0` metric improved to nearly **100%**, indicating that most transactions were processed on the same day. | **Operational Conclusion** <br><br> Processing speed was **not a contributing factor** to failures — the bottleneck was mandate data quality, not response time. |
-| <img src="Chart/Same_Day_Response_%_over_Time.png" width="100%" height="260"/> | <img src="Chart/Response_Time_Distribution_By_Fiscal_Year.png" width="100%" height="260"/> |
+| <img src="Chart/Same_Day_Response_%_over_Time.png" width="100%" height="260"/> | <img src="Chart/Response_Time_Distributiion_By_Fiscal_Year.png" width="100%" height="260"/> |
 
 </details>
 
@@ -82,10 +82,10 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 <details open>
 <summary><strong>Industry Benchmark Comparison</strong></summary>
 
-
 |  |  |
 | :---: | :---: |
 | **Consistent Underperformance** <br><br> The Gazoria Nagrik Bank reported higher failure rates than the monthly industry average across **2,135 participating banks**. | **Opportunity** <br><br> Matching peer-bank performance through mandate data governance would **significantly improve SLA compliance** within 12–18 months. |
+| <img src="Chart/Bank_Vs_Industry_Avg_Fiscal_Year.png" width="100%" height="260"/> | <img src="Chart/Failure_Reduction.png" width="100%" height="260"/> |
 
 </details>
 
