@@ -74,7 +74,7 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 |  |  |
 | :---: | :---: |
 | **Same-Day Processing Near 100%** <br><br> The `Resp_W0` metric improved to nearly **100%**, indicating that most transactions were processed on the same day. | **Operational Conclusion** <br><br> Processing speed was **not a contributing factor** to failures — the bottleneck was mandate data quality, not response time. |
-| <img src="Chart/Same_Day_Response_%_over_Time.png" width="100%" height="260"/> | <img src="Chart/Response_Time_Distributiion_By_Fiscal_Year.png" width="100%" height="260"/> |
+| <img src="Chart/Same_Day_Response_percent_over_Time.png" width="100%" height="260"/> | <img src="Chart/Response_Time_Distributiion_By_Fiscal_Year.png" width="100%" height="260"/> |
 
 </details>
 
@@ -114,17 +114,21 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 
 </details>
 
+<p align="center">
+  <img src="Chart/Failure_Reduction.png" width="100%" height="320"/>
+</p>
+
 ---
 
 
 ## Results — Quantified Outcomes
-
 
 ### Diagnostic Findings
 
 |  |  |  |  |
 | :---: | :---: | :---: | :---: |
 | **100%** <br> Failure Cause Identified <br> Business Declines (0% Technical) | **14.88%** <br> Worst Month Found <br> March FY 2022-23 | **86.4%** <br> Months Above SLA Threshold <br> 38 of 44 months >1% failure | **2.27%** <br> Peak Recovery Year <br> FY 2025-26 avg failure rate |
+
 
 ---
 
@@ -134,6 +138,10 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 | :---: | :---: | :---: | :---: |
 | **+4.33pp** <br> Gap vs Industry (FY23-24) <br> Bank vs 0.00% tech decline nationally | **2.10%** <br> Conservative Scenario <br> After 30% biz decline reduction | **1.50%** <br> Moderate Scenario <br> After 50% biz decline reduction | **0.90%** <br> Aggressive Scenario <br> After 70% — SLA ACHIEVED ✓ |
 
+<p align="center">
+  <img src="Chart/Bank_Vs_Industry_Avg_Fiscal_Year.png" width="100%" height="320"/>
+</p>
+
 ---
 
 ### ML Forecast Outcomes
@@ -142,8 +150,11 @@ Database & Analytics: SQLite, Dimensional Modeling, Root Cause Analysis, SLA Mon
 | :---: | :---: | :---: | :---: |
 | **R² 0.977** <br> ML Model Accuracy <br> 97.7% variance explained | **0.077%** <br> Forecast MAE <br> Avg prediction error | **3.17%** <br> BAU 12M Avg Failure <br> Without intervention | **1.63%** <br> Post-Fix 12M Avg <br> With mandate validation |
 
----
+<p align="center">
+  <img src="Chart/Failure_Reduction_Forecast.png" width="100%" height="320"/>
+</p>
 
+---
 
 ### Operational & Business Impact
 
