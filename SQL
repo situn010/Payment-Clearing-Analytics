@@ -1,12 +1,4 @@
 /* =========================================================
-   PROJECT : NACH Payment Clearing Analytics
-   DOMAIN  : Banking & FinTech / NACH Operations
-   BANK    : Odisha Gramya Bank
-   DATABASE: SQLite
-   ========================================================= */
-
-
-/* =========================================================
    STEP 1 — CREATE DIMENSION & FACT TABLES
    ========================================================= */
 
